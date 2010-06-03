@@ -1,3 +1,5 @@
+namespace Tooltips_plugin;
+
 /*
 	Tooltips plugin for MODx
 	-----------------------
