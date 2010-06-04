@@ -34,7 +34,7 @@ function tooltips($string){
 	}
 	$s .= "|/replace|\n";
 
-	// Append the new section to the string
+	// Prepend the new section to the string
 	return $s . $string;
 }
 
