@@ -21,29 +21,29 @@ namespace Tooltips_plugin;
 */
 
 function tooltips($string){
-	// Get hash of things to substitute
+//	Get hash of things to substitute
 	$sectionscontent = sectionstohash($string, 'tooltips');
 
-	// Return if there were no tooltips sections
+//	Return if there were no tooltips sections
 	if(empty($sectionscontent)){ return $string; }
 
-	// Build a new section, replacing all values with \tt[key][value]
+//	Build a new section, replacing all values with \tt[key][value]
 	$s = "|replace|\n";
 	foreach($sectionscontent as $k => $v){
 		$s .= "\t$k\t=>\t\\tt[$k][$v]\n";
 	}
 	$s .= "|/replace|\n";
 
-	// Prepend the new section to the string
+//	Prepend the new section to the string
 	return $s . $string;
 }
 
 // Returns a hash with all section content and removes the section(s) from the string
 function sectionstohash(&$string, $sectionidentifier){
-	// Get all |sectionidentifier| |/sectionidentifier| sections
+//	Get all |sectionidentifier| |/sectionidentifier| sections
 	preg_match_all("/\|$sectionidentifier\|\s*(.*)\s*\|\/$sectionidentifier\|/uisU", $string, $sections);
 
-	// For each section, add each get each of its key-value pairs and add to $returnhash
+//	For each section, add each get each of its key-value pairs and add to $returnhash
 	$returnhash = array();
 	foreach($sections[1] as $section){
 		preg_match_all("/\s*(.*=>.*)\s*/u", $section, $entries);
@@ -53,13 +53,13 @@ function sectionstohash(&$string, $sectionidentifier){
 		}
 	}
 
-	// Remove all |sectionidentifier| |/sectionidentifier| sections from the original string
+//	Remove all |sectionidentifier| |/sectionidentifier| sections from the original string
 	do{	
 		$laststring = $string;
 		$string = preg_replace("/(\|$sectionidentifier\|.*\|\/$sectionidentifier\|\s)/uisU", '', $string);
 	}while($string !== $laststring);
 
-	// Return hash
+//	Return hash
 	return $returnhash;
 }
 
